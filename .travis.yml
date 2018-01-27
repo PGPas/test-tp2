@@ -6,7 +6,7 @@ before_install:
   - npm install
 
 install:
-  - npm install newman
+  - npm install newman@3.9.3
 
 before_script:
   - node --version
