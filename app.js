@@ -44,7 +44,16 @@ app
          * Implémenter le controlleur
          */
 
-        res.send('Not implemented');
+        var user = new User();
+        user.id = req.body.id;
+        user.firstname = req.body.firstname;
+        user.lastname = req.body.lastname;
+        user.birthday = req.body.birthday;
+
+        var repository = new UserRepository(db);
+        repository.update(user);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.send(user)
     })
 
     //suppression d'un utilisateur

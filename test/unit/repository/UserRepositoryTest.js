@@ -90,14 +90,13 @@ describe("UserRepository", function() {
         expect(repository.findOneById('-1234567')).toEqual(null);
     });
 
-    describe("UserRepository", function() {
-
     /*** Put ***/
 
     it("should call db.write", function(){
-        var mockDb = jasmine.createSpyObj('db', ['get', 'push', 'write']);
+        var mockDb = jasmine.createSpyObj('db', ['assign', 'get', 'find', 'write']);
         mockDb.get.and.returnValue(mockDb);
-        mockDb.push.and.returnValue(mockDb);
+        mockDb.find.and.returnValue(mockDb);
+        mockDb.assign.and.returnValue(mockDb);
 
         var repository = new UserRepository(mockDb);
         repository.update({
@@ -107,8 +106,10 @@ describe("UserRepository", function() {
             birthday : '2000-01-01'
         });
 
-        expect(mockDb.push).toHaveBeenCalledWith({
-            id : 1,
+        expect(mockDb.find).toHaveBeenCalledWith({
+            id : 1
+        });
+        expect(mockDb.assign).toHaveBeenCalledWith({
             firstname: 'John',
             lastname : 'Doe',
             birthday : '2000-01-01'
@@ -124,5 +125,13 @@ describe("UserRepository", function() {
 
         expect(f).toThrow('User object is undefined')
     });
-    
+
+    it("should throw exception undefined", function(){
+        var repository = new UserRepository({});
+        var f = function(){
+            repository.update({firstname: 'anything'});
+        };
+
+        expect(f).toThrow('User id is undefined')
+    });
 });
