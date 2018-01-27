@@ -42,6 +42,7 @@ UserRepository.prototype.findOneById = function (id) {
     if (!id) {
         throw 'User id is undefined';
     }
+
     return this.db
             .get('users')
             .find({ id: id })
@@ -53,7 +54,22 @@ UserRepository.prototype.findOneById = function (id) {
  * @param {User} user
  */
 UserRepository.prototype.update = function (user) {
-
+    if(!user) {
+        throw 'User object is undefined';
+    }
+    if(!user.id) {
+        throw 'User id is undefined';
+    }
+    
+    this.db
+        .get('users')
+        .find({ id: user.id })
+        .assign({ 
+            firstname: user.firstname,
+            lastname: user.lastname,
+            birthday: user.birthday,
+        })
+        .write()
 };
 
 /**
