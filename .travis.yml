@@ -12,6 +12,6 @@ before_script:
 
 script:
   - npm test
-  - console.log('TESTS API');
+  - npm start
   - node_modules/.bin/newman run test-tp2.postman_collection.json
 
