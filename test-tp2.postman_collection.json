@@ -1,0 +1,386 @@
+{
+	"info": {
+		"name": "test-tp2",
+		"_postman_id": "9fc10d23-4d47-1fd0-66de-e411dad642e4",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56a9379b-69d7-4e96-86b4-46a973f3afca",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Response should be okay', function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.status('OK')",
+							"});",
+							"",
+							"pm.test('Response should contain id', function () {",
+							"    pm.response.to.have.jsonBody('id')",
+							"});",
+							"",
+							"var response = pm.response.json();",
+							"pm.environment.set('id', response.id)",
+							"//pm.globals.environment.set('id', response.id)"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstname",
+							"value": "John",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "doe",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "birthday",
+							"value": "2001-01-10",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "faffc2da-d5a2-4786-8d10-f4a366fd474d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Response should be okay', function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.status('OK')",
+							"});",
+							"",
+							"pm.test('Response should contain id', function () {",
+							"    pm.response.to.have.jsonBody('id')",
+							"    pm.response.to.have.jsonBody('firstname')",
+							"    pm.response.to.have.jsonBody('lastname')",
+							"    pm.response.to.have.jsonBody('birthday')",
+							"});",
+							"",
+							"pm.test('Id sould be ' + pm.environment.get('id'), function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.jsonBody('id', pm.environment.get('id'))",
+							"});",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "843cfd5b-0f14-4576-8929-503fefdc6473",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/user/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Put User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae23e1da-f792-46c8-a4f2-335018f02c64",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Response should be okay', function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.status('OK')",
+							"});",
+							"",
+							"pm.test('Response should contain id', function () {",
+							"    pm.response.to.have.jsonBody('id')",
+							"});",
+							"",
+							"var response = pm.response.json();",
+							"//pm.globals.environment.set('id', response.id)",
+							"",
+							"pm.environment.set('id', response.id)"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstname",
+							"value": "Keneth",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "Martinez",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "birthday",
+							"value": "2015-02-20",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "{{id}}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Modified User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1f8631d-a085-4ddc-b230-f8c8c1326176",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Response should be okay', function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.status('OK')",
+							"});",
+							"",
+							"pm.test('Response should contain id', function () {",
+							"    pm.response.to.have.jsonBody('id')",
+							"});",
+							"",
+							"pm.test('Id sould be ' + pm.environment.get('id'), function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.jsonBody('id', pm.environment.get('id'))",
+							"});",
+							"",
+							"pm.test('Response should contains modified record', function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.id).to.eql(pm.environment.get('id'));",
+							"    pm.expect(response.firstname).to.eql(\"Keneth\");",
+							"    pm.expect(response.lastname).to.eql(\"Martinez\");",
+							"    pm.expect(response.birthday).to.eql(\"2015-02-20\");",
+							"});",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "843cfd5b-0f14-4576-8929-503fefdc6473",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/user/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa30a6c7-f460-4f0e-86bf-1d6698d8e38e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Response should be okay', function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.status('OK')",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "{{id}}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Deleted User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01a4865a-fb3b-4e04-a32b-a2c065d1100c",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Response should be okay', function () {",
+							"    pm.response.to.have.status(200)",
+							"    pm.response.to.have.status('OK')",
+							"});",
+							"",
+							"pm.test('Response should not have body', function () {",
+							"    pm.response.to.not.be.withBody;",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "843cfd5b-0f14-4576-8929-503fefdc6473",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/user/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -61,8 +61,10 @@ app
         /**
          * Implémenter le controlleur
          */
-
-        res.send('Not implemented');
+        var repository = new UserRepository(db);
+        repository.delete(req.body.id);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.send();
     });
 
 

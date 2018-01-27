@@ -5,5 +5,13 @@ node_js:
 before_install:
   - npm install
 
+before_script:
+  - node --version
+  - npm --version
+  - node_modules/.bin/newman --version
+
 script:
   - npm test
+  - npm start &
+  - node_modules/.bin/newman run test-tp2.postman_collection.json
+
